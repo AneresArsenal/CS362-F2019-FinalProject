@@ -1,12 +1,13 @@
 #include "dominion.h"
 #include "dominion_helpers.h"
+#include "unit_test_helpers.h"
 #include <string.h>
 #include <stdio.h>
 #include "rngs.h"
 
 void unitTest5()
 {    
-    char *messagePrefix = "UNIT TEST 5 - SCOREFOR - Improper Count Check";
+    char *messagePrefix = "UNIT TEST 5 - Score For - Improper Count Check";
 
     //Set Card Array
     int k[10] = {adventurer, council_room, feast, gardens, mine,

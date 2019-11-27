@@ -1,5 +1,8 @@
 CFLAGS= -Wall -fpic -coverage -lm -std=c99
 
+UTSOURCES = $(wildcard unittest*.c)
+UTOUTPUT = $(patsubst %.c, %, $(UTSOURCES))
+
 rngs.o: rngs.h rngs.c
 	gcc -c rngs.c -g  $(CFLAGS)
 
@@ -28,6 +31,15 @@ player: player.c interface.o
 all: playdom player 
 
 clean:
-	rm -f *.o playdom.exe playdom player player.exe  *.gcov *.gcda *.gcno *.so *.out testDrawCard testDrawCard.exe
+	rm -f *.o playdom.exe playdom player player.exe *.ut *.gcov *.gcda *.gcno *.so *.out testDrawCard testDrawCard.exe
 
-unittestresults:
+unit_test_helpers.o: unit_test_helpers.h unit_test_helpers.c
+	gcc -c unit_test_helpers.c -g  $(CFLAGS)
+
+unittestresults: clean dominion.o unit_test_helpers.o rngs.o $(UTOUTPUT)
+	gcov -f -b dominion.c >> unittestresults.out
+	# cat dominion.c.gcov
+
+$(UTOUTPUT): %: %.c
+	$(CC) -o $@.ut -g $@.c dominion.o unit_test_helpers.o rngs.o $(CFLAGS)
+	./$@.ut >> unittestresults.out
