@@ -395,7 +395,8 @@ int endTurn(struct gameState *state) {
     return 0;
 }
 
-int isGameOver(struct gameState *state) {
+int isGameOver(struct gameState *state)
+{
     int i;
     int j;
 
@@ -407,14 +408,14 @@ int isGameOver(struct gameState *state) {
 
     //if three supply pile are at 0, the game ends
     j = 0;
-    for (i = 0; i < 25; i++)
+    for (i = 0; i <= treasure_map; i++)
     {
         if (state->supplyCount[i] == 0)
         {
             j++;
         }
     }
-    if ( j >= 3)
+    if (j >= 3)
     {
         return 1;
     }
