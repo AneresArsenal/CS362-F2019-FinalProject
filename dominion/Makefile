@@ -1,5 +1,8 @@
 CFLAGS= -Wall -fpic -coverage -lm -std=c99
 
+UTSOURCES = $(wildcard unittest*.c)
+UTOUTPUT = $(patsubst %.c, %, $(UTSOURCES))
+
 rngs.o: rngs.h rngs.c
 	gcc -c rngs.c -g  $(CFLAGS)
 
@@ -21,6 +24,12 @@ runtests: testDrawCard
 	gcov dominion.c >> unittestresult.out
 	cat dominion.c.gcov >> unittestresult.out
 
+#unittestresults: clean dominion.o rngs.o
+#	gcc -o $(foreach src, $(UTFILES), $(eval $MAKE $(src)) -g $(UTSOURCES) dominion.o rngs.o $(CFLAGS)
+	# ./$(UTFILES) >> unittestresults.out
+	# gcov -f -b dominion.c >> unittestresults.out
+	# cat dominion.c.gcov
+#)
 
 player: player.c interface.o
 	gcc -o player player.c -g  dominion.o rngs.o interface.o $(CFLAGS)
@@ -28,4 +37,12 @@ player: player.c interface.o
 all: playdom player 
 
 clean:
-	rm -f *.o playdom.exe playdom player player.exe  *.gcov *.gcda *.gcno *.so *.out testDrawCard testDrawCard.exe
+	rm -f *.o playdom.exe playdom player player.exe *.ut *.gcov *.gcda *.gcno *.so *.out testDrawCard testDrawCard.exe
+
+unittestresults: clean dominion.o rngs.o $(UTOUTPUT)
+	gcov -f -b dominion.c >> unittestresults.out
+	# cat dominion.c.gcov
+
+$(UTOUTPUT): %: %.c
+	$(CC) -o $@.ut -g $@.c dominion.o rngs.o $(CFLAGS)
+	./$@.ut >> unittestresults.out
