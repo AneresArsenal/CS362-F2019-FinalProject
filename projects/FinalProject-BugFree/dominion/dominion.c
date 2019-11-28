@@ -135,6 +135,12 @@ int initializeGame(int numPlayers, int kingdomCards[10], int randomSeed,
 
     ////////////////////////
     //supply intilization complete
+	
+    //Set trash pile
+    state->trashCount = 0;
+    for (i=0; i < MAX_DECK; i++){
+        state->trash[i] = 0;
+    }
 
     //set player decks
     for (i = 0; i < numPlayers; i++)
@@ -389,7 +395,8 @@ int endTurn(struct gameState *state) {
     return 0;
 }
 
-int isGameOver(struct gameState *state) {
+int isGameOver(struct gameState *state)
+{
     int i;
     int j;
 
@@ -401,14 +408,14 @@ int isGameOver(struct gameState *state) {
 
     //if three supply pile are at 0, the game ends
     j = 0;
-    for (i = 0; i < 25; i++)
+    for (i = 0; i <= treasure_map; i++)
     {
         if (state->supplyCount[i] == 0)
         {
             j++;
         }
     }
-    if ( j >= 3)
+    if (j >= 3)
     {
         return 1;
     }
@@ -806,7 +813,7 @@ int cardEffect(int card, int choice1, int choice2, int choice3, struct gameState
         return -1;
 
     case mine:
-        j = state->hand[currentPlayer][choice1];  //store card we will trash
+        j = state->hand[currentPlayer][choice1]; //store card we will trash
 
         if (state->hand[currentPlayer][choice1] < copper || state->hand[currentPlayer][choice1] > gold)
         {
@@ -818,7 +825,7 @@ int cardEffect(int card, int choice1, int choice2, int choice3, struct gameState
             return -1;
         }
 
-        if ( (getCost(state->hand[currentPlayer][choice1]) + 3) > getCost(choice2) )
+        if ((getCost(state->hand[currentPlayer][choice1]) + 3) < getCost(choice2))
         {
             return -1;
         }
@@ -833,7 +840,7 @@ int cardEffect(int card, int choice1, int choice2, int choice3, struct gameState
         {
             if (state->hand[currentPlayer][i] == j)
             {
-                discardCard(i, currentPlayer, state, 0);
+                discardCard(i, currentPlayer, state, 1);
                 break;
             }
         }
@@ -841,9 +848,9 @@ int cardEffect(int card, int choice1, int choice2, int choice3, struct gameState
         return 0;
 
     case remodel:
-        j = state->hand[currentPlayer][choice1];  //store card we will trash
+        j = state->hand[currentPlayer][choice1]; //store card we will trash
 
-        if ( (getCost(state->hand[currentPlayer][choice1]) + 2) > getCost(choice2) )
+        if ((getCost(state->hand[currentPlayer][choice1]) + 2) < getCost(choice2))
         {
             return -1;
         }
@@ -862,7 +869,6 @@ int cardEffect(int card, int choice1, int choice2, int choice3, struct gameState
                 break;
             }
         }
-
 
         return 0;
 
@@ -1265,38 +1271,38 @@ int cardEffect(int card, int choice1, int choice2, int choice3, struct gameState
 
 int discardCard(int handPos, int currentPlayer, struct gameState *state, int trashFlag)
 {
-
-    //if card is not trashed, added to Played pile
-    if (trashFlag < 1)
+    //if trash flag is set, add to trash pile
+    if (trashFlag != 0)
     {
-        //add card to played pile
-        state->playedCards[state->playedCardCount] = state->hand[currentPlayer][handPos];
-        state->playedCardCount++;
+        //add card to trash pile
+        state->trash[state->trashCount] = state->hand[currentPlayer][handPos];
+        state->trashCount++;
     }
 
+    //if trash flag is not set, add to player's discard pile
+    else
+    {
+        state->discard[currentPlayer][state->discardCount[currentPlayer]] = state->hand[currentPlayer][handPos];
+        state->discardCount[currentPlayer]++;
+    }
+
+    //remove played card from player's hand
     //set played card to -1
     state->hand[currentPlayer][handPos] = -1;
 
-    //remove card from player's hand
-    if ( handPos == (state->handCount[currentPlayer] - 1) ) 	//last card in hand array is played
+    //if discarded card is not the last card in the player's hand or the only card in the player's hand -> move cards up to fill gap
+    if ((handPos != (state->handCount[currentPlayer] - 1)) && (state->handCount[currentPlayer] != 1))
     {
-        //reduce number of cards in hand
-        state->handCount[currentPlayer]--;
+        //need to maintain hand order -> set hand[p] = hand[p+1]
+        for (int p = handPos; p < state->handCount[currentPlayer]; p++)
+        {
+            state->hand[currentPlayer][p] = state->hand[currentPlayer][p + 1];
+        }
+        state->hand[currentPlayer][state->handCount[currentPlayer]] = -1;
     }
-    else if ( state->handCount[currentPlayer] == 1 ) //only one card in hand
-    {
-        //reduce number of cards in hand
-        state->handCount[currentPlayer]--;
-    }
-    else
-    {
-        //replace discarded card with last card in hand
-        state->hand[currentPlayer][handPos] = state->hand[currentPlayer][ (state->handCount[currentPlayer] - 1)];
-        //set last card to -1
-        state->hand[currentPlayer][state->handCount[currentPlayer] - 1] = -1;
-        //reduce number of cards in hand
-        state->handCount[currentPlayer]--;
-    }
+
+    //reduce number of cards in hand
+    state->handCount[currentPlayer]--;
 
     return 0;
 }
