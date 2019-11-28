@@ -43,3 +43,8 @@ unittestresults: clean dominion.o unit_test_helpers.o rngs.o $(UTOUTPUT)
 $(UTOUTPUT): %: %.c
 	$(CC) -o $@.ut -g $@.c dominion.o unit_test_helpers.o rngs.o $(CFLAGS)
 	./$@.ut >> unittestresults.out
+
+unittest9: unittest9.c dominion.o
+	gcc -o unittest9  unittest9.c dominion.c rngs.c $(CFLAGS)
+	./unittest9
+	gcov dominion.c -b -f
