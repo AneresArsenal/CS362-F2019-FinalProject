@@ -8,7 +8,7 @@
             "name": "(gdb) Launch",
             "type": "cppdbg",
             "request": "launch",
-            "program": "${workspaceFolder}/projects/FinalProject-Bugs/dominion/unittest6.ut",
+            "program": "${workspaceFolder}/projects/FinalProject-BugFree/dominion/unittest8.ut",
             "args": [],
             "stopAtEntry": false,
             "cwd": "${workspaceFolder}",
