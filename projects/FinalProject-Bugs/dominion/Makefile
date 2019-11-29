@@ -52,4 +52,4 @@ $(UTOUTPUT): %: %.c
 unittest10: unittest10.c dominion.o
 	gcc -o unittest10 unittest10.c dominion.c rngs.c $(CFLAGS)
 	./unittest10
-	gcov dominion.c -b -f
+	# gcov dominion.c -b -f

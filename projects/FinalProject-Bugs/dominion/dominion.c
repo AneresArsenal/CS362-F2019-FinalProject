@@ -1205,7 +1205,8 @@ int cardEffect(int card, int choice1, int choice2, int choice3, struct gameState
 
         if (j < choice2)
         {
-            return -1;
+            choice2 = j;
+            // return -1;
         }
 
         if (DEBUG)
@@ -1216,6 +1217,7 @@ int cardEffect(int card, int choice1, int choice2, int choice3, struct gameState
         state->supplyCount[state->hand[currentPlayer][choice1]] += choice2;
 
         //each other player gains a copy of revealed card
+
         for (i = 0; i < state->numPlayers; i++)
         {
             if (i != currentPlayer)
@@ -1224,12 +1226,38 @@ int cardEffect(int card, int choice1, int choice2, int choice3, struct gameState
             }
         }
 
-        
+        // for (int i = 0; i < 11; i++)
+        // {
+        //     printf("Card %d, %d \n", i, state->hand[state->whoseTurn][i]);
+        // }
 
         //discard played card from hand
-        discardCard(handPos, currentPlayer, state, 0);
+        discardCard(handPos, state->whoseTurn, state, 0);
+
+        // for (int i = 0; i < 11; i++)
+        // {
+        //     printf("Card %d, %d \n", i, state->hand[state->whoseTurn][i]);
+        // }
 
         //trash copies of cards returned to supply
+        // int thrashed = 0;
+
+        // for (int k = 0; k < state->handCount[currentPlayer]; k++)
+        // {
+        //     // printf("Position: %d\n", k);
+
+        //     if (thrashed >= choice2)
+        //     {
+        //         break;
+        //     }
+        //     else if (state->hand[currentPlayer][k] == state->hand[currentPlayer][choice1])
+        //     {
+        //         discardCard(i, currentPlayer, state, k);
+        //         // printf("Thrashed Position: %d\n", k);
+        //         thrashed++;
+        //     }
+        // }
+
         for (j = 0; j < choice2; j++)
         {
             for (i = 0; i < state->handCount[currentPlayer]; i++)
@@ -1241,8 +1269,6 @@ int cardEffect(int card, int choice1, int choice2, int choice3, struct gameState
                 }
             }
         }
-
-  
 
         return 0;
 
@@ -1384,6 +1410,7 @@ int discardCard(int handPos, int currentPlayer, struct gameState *state, int tra
     if (handPos == (state->handCount[currentPlayer] - 1)) //last card in hand array is played
     {
         //reduce number of cards in hand
+
         state->handCount[currentPlayer]--;
     }
     else if (state->handCount[currentPlayer] == 1) //only one card in hand
@@ -1393,6 +1420,7 @@ int discardCard(int handPos, int currentPlayer, struct gameState *state, int tra
     }
     else
     {
+
         //replace discarded card with last card in hand
         state->hand[currentPlayer][handPos] = state->hand[currentPlayer][(state->handCount[currentPlayer] - 1)];
         //set last card to -1

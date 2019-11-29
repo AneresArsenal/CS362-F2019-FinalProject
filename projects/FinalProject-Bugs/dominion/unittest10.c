@@ -19,41 +19,53 @@ void unitTest10()
     printf("Game initialized \n\n");
 
     int bonus = 0,
-        r = 10;
+        r = 11;
 
     pre.handCount[pre.whoseTurn] = r;
 
     // randomly assign cards to player and other player
-    for (int i = 0; i < r; i++)
+    for (int i = 0; i < r - 1; i++)
     {
         pre.hand[pre.whoseTurn][i] = k[9 - i];
     }
 
+    pre.hand[pre.whoseTurn][10] = ambassador;
+    // set 3 duplicate copper cards in deck
+    pre.hand[pre.whoseTurn][9] = copper;
+    pre.hand[pre.whoseTurn][8] = copper;
+    pre.hand[pre.whoseTurn][7] = copper;
+
     memcpy(&post, &pre, sizeof(struct gameState));
     printf("Test case 1: Choose to discard 1 copper card. \n\n");
 
-    int choice1 = 8,
+    int choice1 = 9,
         choice2 = 1;
 
-    // set 3 duplicate copper cards in deck
-    post.hand[post.whoseTurn][9] = copper;
-    post.hand[post.whoseTurn][8] = copper;
-    post.hand[post.whoseTurn][7] = copper;
-
+    // for (int i = 0; i < r; i++)
+    // {
+    //     printf("Card %d, %d \n", i, post.hand[post.whoseTurn][i]);
+    // }
+    
     // call the cardEffect function
-    cardEffect(ambassador, choice1, choice2, 0, &post, 0, &bonus);
+    cardEffect(ambassador, choice1, choice2, 0, &post, 10, &bonus);
+
+    // for (int i = 0; i < r; i++)
+    // {
+    //     printf("Card %d, %d \n", i, post.hand[post.whoseTurn][i]);
+    // }
 
     // assert the results
-    int i = 0;
+    int discard = 0;
     int copperCount = 0;
-
-    for (int i = 0; i < r; i++)
-    {
-        printf("%d \n", post.hand[post.whoseTurn][i]);
-    }
+    int i = 0;
 
     while (i < r)
     {
+        if (post.hand[post.whoseTurn][i] == -1)
+        {
+            discard++;
+        }
+
         if (post.hand[post.whoseTurn][i] == copper)
         {
             copperCount++;
@@ -61,32 +73,51 @@ void unitTest10()
         i++;
     }
 
+    if (discard == choice2 +1)
+    {
+        printf("Despite the bug, the correct number of cards is discarded.\n");
+        printf("Number of cards to be discarded: %d \n", choice2 + 1);
+        printf("Number of cards discarded: %d \n\n", discard);
+    }
+
     if (copperCount == 2)
     {
-        printf("Bug found! Wrong card discarded! \n");
-        printf("Pre-call copper cards tally: %d \n", 3);
-        printf("Post-call copper cards tally: %d \n\n", copperCount);
+        printf("Despite the bug, the correct number of copper cards is discarded.\n");
+        printf("Number of copper cards that should remain: %d \n", 3-choice2);
+        printf("Number of copper cards remaining: %d \n\n", copperCount);
     }
 
     memcpy(&post, &pre, sizeof(struct gameState));
     printf("Test case 2: Choose to discard two copper cards. \n\n");
 
-    choice1 = 8;
+    choice1 = 9;
     choice2 = 2;
 
-    // set 3 duplicate copper cards in deck
-    post.hand[post.whoseTurn][9] = copper;
-    post.hand[post.whoseTurn][8] = copper;
-    post.hand[post.whoseTurn][7] = copper;
+    // for (int i = 0; i < r; i++)
+    // {
+    //     printf("Card %d, %d \n", i, post.hand[post.whoseTurn][i]);
+    // }
 
     // call the cardEffect function
-    cardEffect(ambassador, choice1, choice2, 0, &post, -1, &bonus);
+    cardEffect(ambassador, choice1, choice2, 0, &post, 10, &bonus);
+
+    // for (int i = 0; i < r; i++)
+    // {
+    //     printf("Card %d, %d \n", i, post.hand[post.whoseTurn][i]);
+    // }
 
     // assert the results
+    discard = 0;
     i = 0;
     copperCount = 0;
-    while (i < r - choice2)
+
+    while (i < r)
     {
+        if (post.hand[post.whoseTurn][i] == -1)
+        {
+            discard++;
+        }
+
         if (post.hand[post.whoseTurn][i] == copper)
         {
             copperCount++;
@@ -94,18 +125,18 @@ void unitTest10()
         i++;
     }
 
-    if (copperCount != 1)
+    if (discard != choice2 + 1)
     {
-        printf("Bug found! Wrong card discarded! \n");
-        printf("Pre-call copper cards tally: %d \n", 3);
-        printf("Post-call copper cards tally: %d \n\n", copperCount);
+        printf("Bug Found! Wrong number of cards discarded.\n");
+        printf("Number of cards to be discarded: %d \n", choice2 + 1);
+        printf("Number of cards discarded: %d \n\n", discard);
     }
 
-    if (post.handCount[post.whoseTurn] == pre.handCount[post.whoseTurn] - 2)
+    if (copperCount != 1)
     {
-        printf("Bug found! Number of cards on hand should be decremented by 2! \n");
-        printf("Pre-call number of cards on hand: %d \n", pre.handCount[post.whoseTurn]);
-        printf("Post-call number of cards on hand: %d \n\n", post.handCount[post.whoseTurn]);
+        printf("Bug Found! Wrong number of copper cards discarded.\n");
+        printf("Number of copper cards that should remain: %d \n", 3-choice2);
+        printf("Number of copper cards remaining: %d \n\n", copperCount);
     }
 
     printf("Unit Test 10 completed! \n\n");
