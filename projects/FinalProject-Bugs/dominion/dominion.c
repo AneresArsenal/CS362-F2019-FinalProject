@@ -1239,24 +1239,6 @@ int cardEffect(int card, int choice1, int choice2, int choice3, struct gameState
         //     printf("Card %d, %d \n", i, state->hand[state->whoseTurn][i]);
         // }
 
-        //trash copies of cards returned to supply
-        // int thrashed = 0;
-
-        // for (int k = 0; k < state->handCount[currentPlayer]; k++)
-        // {
-        //     // printf("Position: %d\n", k);
-
-        //     if (thrashed >= choice2)
-        //     {
-        //         break;
-        //     }
-        //     else if (state->hand[currentPlayer][k] == state->hand[currentPlayer][choice1])
-        //     {
-        //         discardCard(i, currentPlayer, state, k);
-        //         // printf("Thrashed Position: %d\n", k);
-        //         thrashed++;
-        //     }
-        // }
 
         for (j = 0; j < choice2; j++)
         {
