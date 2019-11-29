@@ -1106,8 +1106,10 @@ int cardEffect(int card, int choice1, int choice2, int choice3, struct gameState
         return 0;
 
     case tribute:
+
         if ((state->discardCount[nextPlayer] + state->deckCount[nextPlayer]) <= 1)
         {
+
             if (state->deckCount[nextPlayer] > 0)
             {
                 tributeRevealedCards[0] = state->deck[nextPlayer][state->deckCount[nextPlayer] - 1];
@@ -1132,6 +1134,7 @@ int cardEffect(int card, int choice1, int choice2, int choice3, struct gameState
         {
             if (state->deckCount[nextPlayer] == 0)
             {
+
                 for (i = 0; i < state->discardCount[nextPlayer]; i++)
                 {
                     state->deck[nextPlayer][i] = state->discard[nextPlayer][i]; //Move to deck
@@ -1142,10 +1145,16 @@ int cardEffect(int card, int choice1, int choice2, int choice3, struct gameState
 
                 shuffle(nextPlayer, state); //Shuffle the deck
             }
+
+            // for (int i = 0; i < state->deckCount[nextPlayer]; i++)
+            // {
+            //     printf("Card %d, %d \n", i, state->deck[nextPlayer][i]);
+            // }
+
             tributeRevealedCards[0] = state->deck[nextPlayer][state->deckCount[nextPlayer] - 1];
+            tributeRevealedCards[1] = state->deck[nextPlayer][state->deckCount[nextPlayer] - 2];
             state->deck[nextPlayer][state->deckCount[nextPlayer]--] = -1;
             state->deckCount[nextPlayer]--;
-            tributeRevealedCards[1] = state->deck[nextPlayer][state->deckCount[nextPlayer] - 1];
             state->deck[nextPlayer][state->deckCount[nextPlayer]--] = -1;
             state->deckCount[nextPlayer]--;
         }
@@ -1157,8 +1166,10 @@ int cardEffect(int card, int choice1, int choice2, int choice3, struct gameState
             tributeRevealedCards[1] = -1;
         }
 
-        for (i = 0; i <= 2; i++)
+        for (i = 0; i < 2; i++)
         {
+            // printf("Card revealed: %d \n", tributeRevealedCards[i]);
+
             if (tributeRevealedCards[i] == copper || tributeRevealedCards[i] == silver || tributeRevealedCards[i] == gold)
             { //Treasure cards
                 state->coins += 2;
@@ -1238,7 +1249,6 @@ int cardEffect(int card, int choice1, int choice2, int choice3, struct gameState
         // {
         //     printf("Card %d, %d \n", i, state->hand[state->whoseTurn][i]);
         // }
-
 
         for (j = 0; j < choice2; j++)
         {

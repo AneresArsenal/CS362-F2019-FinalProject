@@ -28,15 +28,15 @@ void unitTest9()
     int nextPlayer = pre.whoseTurn + 1;
 
     //Set first cards in hand to feast and silver
-    pre.handCount[pre.whoseTurn] = r;
-    pre.handCount[nextPlayer] = r;
-    // pre.hand[pre.whoseTurn][0] = tribute;
+    pre.deckCount[pre.whoseTurn] = r;
+    pre.deckCount[nextPlayer] = r;
+    // pre.deck[pre.whoseTurn][0] = tribute;
 
     // randomly assign cards to player and other player
     for (int i = 0; i < r; i++)
     {
-        pre.hand[pre.whoseTurn][i] = k[9 - i];
-        pre.hand[nextPlayer][i] = k[9 - i];
+        pre.deck[pre.whoseTurn][i] = k[9 - i];
+        pre.deck[nextPlayer][i] = k[9 - i];
     }
 
     // set test variables
@@ -48,8 +48,8 @@ void unitTest9()
     printf("Test case 1: Reveal and discard top 2 cards (1 action card and 1 treasure card) from next player's hand. \n\n");
 
     // set top 2 cards
-    post.hand[nextPlayer][9] = village;
-    post.hand[nextPlayer][8] = copper;
+    post.deck[nextPlayer][9] = village;
+    post.deck[nextPlayer][8] = copper;
 
     // call the cardEffect function
     cardEffect(tribute, 0, 0, 0, &post, 0, &bonus);
@@ -66,8 +66,8 @@ void unitTest9()
     if (post.coins - pre.coins == 2)
     {
         printf("Bug found! 2 bonus coins should be added to bonus and not coins tally! \n");
-        printf("Pre-call bonus tally: %d \n", pre.coins);
-        printf("Post-call bonus tally: %d \n\n", post.coins);
+        printf("Pre-call coin tally: %d \n", pre.coins);
+        printf("Post-call coin tally: %d \n\n", post.coins);
     }
 
     // village card (action card) should increase action plays by 2
@@ -82,14 +82,14 @@ void unitTest9()
     printf("Test case 2: Reveal and discard top 2 cards from next player's hand with victory cards only. \n\n");
 
     // set top 2 cards
-    post.hand[nextPlayer][9] = estate;
-    post.hand[nextPlayer][8] = estate;
+    post.deck[nextPlayer][9] = estate;
+    post.deck[nextPlayer][8] = estate;
 
     // call the cardEffect function
     cardEffect(tribute, 0, 0, 0, &post, 0, &bonus);
 
     // assert the results
-    // adds only 2 cards to current player's deck
+    // adds 2 cards to current player's deck and two action phases (bug error)
     if (post.handCount[pre.whoseTurn] == pre.handCount[pre.whoseTurn] + 2)
     {
         printf("Valid! Number of cards in player's hand is accurate! \n");
@@ -97,16 +97,9 @@ void unitTest9()
         printf("Post-call handCount: %d \n\n", post.handCount[pre.whoseTurn]);
     }
 
-    if (bonus == pre_bonus)
+    if (post.numActions != pre.numActions)
     {
-        printf("Valid, no bonus should be added! \n");
-        printf("Pre-call bonus tally: %d \n", pre_bonus);
-        printf("Post-call bonus tally: %d \n\n", bonus);
-    }
-
-    if (post.numActions == pre.numActions)
-    {
-        printf("Valid! Number of action plays should be unchanged! \n");
+        printf("Bug found! Number of action plays should be unchanged! \n");
         printf("Pre-call number of action plays: %d \n", pre.numActions);
         printf("Post-call number of action plays: %d \n\n", post.numActions);
     }
@@ -114,34 +107,57 @@ void unitTest9()
     memcpy(&post, &pre, sizeof(struct gameState));
     printf("Test case 3: Reveal and discard top 2 cards from next player's hand with action cards only. \n\n");
 
+    // printf("Next player: %d \n", nextPlayer);
+
     // duplicate action cards on top deck
-    post.hand[nextPlayer][9] = minion;
-    post.hand[nextPlayer][8] = minion;
+    post.deck[nextPlayer][9] = minion;
+    post.deck[nextPlayer][8] = minion;
 
     // call the cardEffect function
     cardEffect(tribute, 0, 0, 0, &post, 0, &bonus);
 
     // assert the results
     // adds only 2 action phases to current player's deck
-    if (post.numActions == pre.numActions + 2)
+    if (post.numActions == pre.numActions + 4)
     {
-        printf("Valid! Number of action phase added is accurate! \n");
+        printf("Bug found! Number of action plays should be added by 2!  \n");
         printf("Pre-call numActions: %d \n", pre.numActions);
         printf("Post-call numActions: %d \n\n", post.numActions);
     }
 
-    if (post.handCount[pre.whoseTurn] == pre.handCount[pre.whoseTurn])
+    memcpy(&post, &pre, sizeof(struct gameState));
+    printf("Test case 4: Reveal and discard top 2 cards from next player's hand with treasure cards only. \n\n");
+
+    // duplicate action cards on top deck
+    post.deck[nextPlayer][9] = gold;
+    post.deck[nextPlayer][8] = gold;
+
+    bonus = 0;
+
+    // call the cardEffect function
+    cardEffect(tribute, 0, 0, 0, &post, 0, &bonus);
+
+    // assert the results
+    // adds only 2 action phases to current player's deck
+    if (post.numActions != pre.numActions)
     {
-        printf("Valid! Number of cards in player's hand should be unchanged! \n");
-        printf("Pre-call handCount: %d \n", pre.handCount[pre.whoseTurn]);
-        printf("Post-call handCount: %d \n\n", post.handCount[pre.whoseTurn]);
+        printf("Bug found! Number of action plays should be unchanged!  \n");
+        printf("Pre-call numActions: %d \n", pre.numActions);
+        printf("Post-call numActions: %d \n\n", post.numActions);
     }
 
-    if (bonus == pre_bonus)
+    if (bonus - pre_bonus != 2)
     {
-        printf("Valid, no bonus should be added! \n");
+        printf("Bug found! 2 bonus coins should be added! \n");
         printf("Pre-call bonus tally: %d \n", pre_bonus);
         printf("Post-call bonus tally: %d \n\n", bonus);
+    }
+
+    if (post.coins - pre.coins == 2)
+    {
+        printf("Bug found! 2 bonus coins should be added to bonus and not coins tally! \n");
+        printf("Pre-call coin tally: %d \n", pre.coins);
+        printf("Post-call coin tally: %d \n\n", post.coins);
     }
 
     printf("Unit Test 9 completed! \n\n");
