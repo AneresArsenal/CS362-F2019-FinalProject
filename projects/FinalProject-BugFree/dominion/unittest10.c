@@ -45,7 +45,7 @@ void unitTest10()
     // {
     //     printf("Card %d, %d \n", i, post.hand[post.whoseTurn][i]);
     // }
-    
+
     // call the cardEffect function
     cardEffect(ambassador, choice1, choice2, 0, &post, 10, &bonus);
 
@@ -73,7 +73,7 @@ void unitTest10()
         i++;
     }
 
-    if (discard == choice2 +1)
+    if (discard == choice2 + 1)
     {
         printf("Valid no bugs.\n");
         printf("Number of cards to be discarded: %d \n", choice2 + 1);
@@ -83,7 +83,7 @@ void unitTest10()
     if (copperCount == 2)
     {
         printf("Valid no bugs.\n");
-        printf("Number of copper cards that should remain: %d \n", 3-choice2);
+        printf("Number of copper cards that should remain: %d \n", 3 - choice2);
         printf("Number of copper cards remaining: %d \n\n", copperCount);
     }
 
@@ -93,18 +93,18 @@ void unitTest10()
     choice1 = 9;
     choice2 = 2;
 
-    for (int i = 0; i < r; i++)
-    {
-        printf("Card %d, %d \n", i, post.hand[post.whoseTurn][i]);
-    }
+    // for (int i = 0; i < r; i++)
+    // {
+    //     printf("Card %d, %d \n", i, post.hand[post.whoseTurn][i]);
+    // }
 
     // call the cardEffect function
     cardEffect(ambassador, choice1, choice2, 0, &post, 10, &bonus);
 
-    for (int i = 0; i < r; i++)
-    {
-        printf("Card %d, %d \n", i, post.hand[post.whoseTurn][i]);
-    }
+    // for (int i = 0; i < r; i++)
+    // {
+    //     printf("Card %d, %d \n", i, post.hand[post.whoseTurn][i]);
+    // }
 
     // assert the results
     discard = 0;
@@ -125,17 +125,17 @@ void unitTest10()
         i++;
     }
 
-    if (discard != choice2 + 1)
+    if (discard == choice2 + 1)
     {
-        printf("Bug Found! Wrong number of cards discarded.\n");
+        printf("Valid. Bugs Fixed. \n");
         printf("Number of cards to be discarded: %d \n", choice2 + 1);
         printf("Number of cards discarded: %d \n\n", discard);
     }
 
-    if (copperCount != 1)
+    if (copperCount == 1)
     {
-        printf("Bug Found! Wrong number of copper cards discarded.\n");
-        printf("Number of copper cards that should remain: %d \n", 3-choice2);
+        printf("Valid. Bugs Fixed. \n");
+        printf("Number of copper cards that should remain: %d \n", 3 - choice2);
         printf("Number of copper cards remaining: %d \n\n", copperCount);
     }
 
