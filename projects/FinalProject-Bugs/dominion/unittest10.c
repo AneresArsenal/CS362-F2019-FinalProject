@@ -7,77 +7,108 @@
 
 void unitTest10()
 {
+    printf("Starting Unit Test 10 - Ambassador card - comparing position i with card choice \n\n");
+
     // initialize and set variables
     struct gameState pre, post;
     int k[10] = {feast, gardens, embargo, village, minion, mine, cutpurse,
-                 sea_hag, tribute, smithy};
-
-    printf("Starting Unit Test 3 - playAmbassador function \n\n");
+                 sea_hag, ambassador, smithy};
 
     initializeGame(2, k, 1234, &pre);
+
     printf("Game initialized \n\n");
 
-    int handPos = 0,
-        choice1 = 4,
-        choice2 = 3,
-        currentPlayer = 1,
+    int bonus = 0,
         r = 10;
 
-    pre.handCount[currentPlayer] = r;
+    pre.handCount[pre.whoseTurn] = r;
 
-    // randomly assign cards
+    // randomly assign cards to player and other player
     for (int i = 0; i < r; i++)
     {
-        pre.hand[currentPlayer][i] = k[9 - i];
+        pre.hand[pre.whoseTurn][i] = k[9 - i];
     }
 
     memcpy(&post, &pre, sizeof(struct gameState));
-    printf("Test case 1: Player choose to discard 3 cards (invalid). \n\n");
+    printf("Test case 1: Choose to discard 1 copper card. \n\n");
 
-    // set three village cards
-    post.hand[currentPlayer][5] = village;
-    post.hand[currentPlayer][6] = village;
-    post.hand[currentPlayer][7] = village;
+    int choice1 = 8,
+        choice2 = 1;
 
-    // call the refactored functions
-    playAmbassador(choice1, choice2, &post, currentPlayer, handPos);
+    // set 3 duplicate copper cards in deck
+    post.hand[post.whoseTurn][9] = copper;
+    post.hand[post.whoseTurn][8] = copper;
+    post.hand[post.whoseTurn][7] = copper;
+
+    // call the cardEffect function
+    cardEffect(ambassador, choice1, choice2, 0, &post, 0, &bonus);
 
     // assert the results
-    // discard max 2 cards i.e. discard Ambassador card + 2 cards max
-    if (post.handCount[currentPlayer] < pre.handCount[currentPlayer] - 3)
+    int i = 0;
+    int copperCount = 0;
+
+    for (int i = 0; i < r; i++)
     {
-        printf("Bug #1 found! Return more than 2 cards to supply! \n");
-        printf("Pre-call handCount: %d \n", pre.handCount[currentPlayer]);
-        printf("Post-call handCount: %d \n\n", post.handCount[currentPlayer]);
+        printf("%d \n", post.hand[post.whoseTurn][i]);
     }
 
-    // supply count change should be add choice 2 deduct 2 * # of player (1)
-    if (post.supplyCount[village] != pre.supplyCount[village] + choice2 - 2)
+    while (i < r)
     {
-        printf("Bug #2 found! Card not added into and deducted from supply correctly! \n");
-        printf("Pre-call suuply count: %d \n", pre.supplyCount[village]);
-        printf("Post-call suuply count: %d \n\n", post.supplyCount[village]);
+        if (post.hand[post.whoseTurn][i] == copper)
+        {
+            copperCount++;
+        }
+        i++;
+    }
+
+    if (copperCount == 2)
+    {
+        printf("Bug found! Wrong card discarded! \n");
+        printf("Pre-call copper cards tally: %d \n", 3);
+        printf("Post-call copper cards tally: %d \n\n", copperCount);
     }
 
     memcpy(&post, &pre, sizeof(struct gameState));
-    printf("Test case 2: Player choose not to discard revealed card.\n\n");
+    printf("Test case 2: Choose to discard two copper cards. \n\n");
 
-    choice2 = 0;
+    choice1 = 8;
+    choice2 = 2;
 
-    // call the refactored functions
-    playAmbassador(choice1, choice2, &post, currentPlayer, handPos);
+    // set 3 duplicate copper cards in deck
+    post.hand[post.whoseTurn][9] = copper;
+    post.hand[post.whoseTurn][8] = copper;
+    post.hand[post.whoseTurn][7] = copper;
+
+    // call the cardEffect function
+    cardEffect(ambassador, choice1, choice2, 0, &post, -1, &bonus);
 
     // assert the results
-    // discard only Ambassador card
-    if (post.handCount[currentPlayer] != pre.handCount[currentPlayer] - 1)
+    i = 0;
+    copperCount = 0;
+    while (i < r - choice2)
     {
-        printf("Bug found! Card not discarded properly from hand! \n");
-        printf("Pre-call handCount: %d \n", pre.handCount[currentPlayer]);
-        printf("Post-call handCount: %d \n\n", post.handCount[currentPlayer]);
+        if (post.hand[post.whoseTurn][i] == copper)
+        {
+            copperCount++;
+        }
+        i++;
     }
 
-    printf("Unit Test 3 completed! \n\n");
-   
+    if (copperCount != 1)
+    {
+        printf("Bug found! Wrong card discarded! \n");
+        printf("Pre-call copper cards tally: %d \n", 3);
+        printf("Post-call copper cards tally: %d \n\n", copperCount);
+    }
+
+    if (post.handCount[post.whoseTurn] == pre.handCount[post.whoseTurn] - 2)
+    {
+        printf("Bug found! Number of cards on hand should be decremented by 2! \n");
+        printf("Pre-call number of cards on hand: %d \n", pre.handCount[post.whoseTurn]);
+        printf("Post-call number of cards on hand: %d \n\n", post.handCount[post.whoseTurn]);
+    }
+
+    printf("Unit Test 10 completed! \n\n");
 }
 
 int main()
