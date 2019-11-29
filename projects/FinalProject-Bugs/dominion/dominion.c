@@ -1151,10 +1151,10 @@ int cardEffect(int card, int choice1, int choice2, int choice3, struct gameState
             //     printf("Card %d, %d \n", i, state->deck[nextPlayer][i]);
             // }
 
-            tributeRevealedCards[0] = state->deck[nextPlayer][state->deckCount[nextPlayer] - 1];
-            tributeRevealedCards[1] = state->deck[nextPlayer][state->deckCount[nextPlayer] - 2];
+            tributeRevealedCards[0] = state->deck[nextPlayer][state->deckCount[nextPlayer]-1];
             state->deck[nextPlayer][state->deckCount[nextPlayer]--] = -1;
             state->deckCount[nextPlayer]--;
+            tributeRevealedCards[1] = state->deck[nextPlayer][state->deckCount[nextPlayer]-1];
             state->deck[nextPlayer][state->deckCount[nextPlayer]--] = -1;
             state->deckCount[nextPlayer]--;
         }
