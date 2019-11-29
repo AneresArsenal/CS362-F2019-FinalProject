@@ -49,3 +49,8 @@ unittest10: unittest10.c dominion.c
 	gcc -o unittest10 unittest10.c dominion.c rngs.c $(CFLAGS)
 	./unittest10
 	# gcov dominion.c -b -f
+
+unittest9: unittest9.c dominion.c
+	gcc -o unittest9 unittest9.c dominion.c rngs.c $(CFLAGS)
+	./unittest9
+	# gcov dominion.c -b -f
