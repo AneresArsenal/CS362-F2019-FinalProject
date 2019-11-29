@@ -18,7 +18,7 @@ void unitTest5()
     initializeGame(2, k, 1, &G);
 
     G.handCount[G.whoseTurn] = 1;
-    G.discard[G.whoseTurn][0] = estate;
+    G.hand[G.whoseTurn][0] = estate;
 
     //Set discarded cards to have 2 estates worth 2 points
     G.discardCount[G.whoseTurn] = 2;
@@ -35,7 +35,7 @@ void unitTest5()
     }
 
     int result = scoreFor(G.whoseTurn, &G);
-    assert(result==10, "%s - End Score (%d) == Expected Score (%d)\n", messagePrefix, result, 11);
+    assert(result==11, "%s - End Score (%d) == Expected Score (%d)\n", messagePrefix, result, 11);
 }
 
 int main()

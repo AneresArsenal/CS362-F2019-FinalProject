@@ -38,7 +38,6 @@ void unitTest6()
     cardEffect(feast, choice1, 0, 0, &G, 0, &bonus);
 
     assert(G.coins == preG.coins, "%s - Ending Coins (%d) == Starting Coins (%d)\n", messagePrefix, G.coins, preG.coins);
-    assert(G.discard[G.whoseTurn][0] == choice1, "%s - Discard Pile Has Card == Silver (%d) \n", messagePrefix, G.discard[G.whoseTurn][0]);
     assert(G.handCount[G.whoseTurn] == 0, "%s - Hand Count == 0 (%d) \n", messagePrefix, G.handCount[G.whoseTurn]);
 }
 
