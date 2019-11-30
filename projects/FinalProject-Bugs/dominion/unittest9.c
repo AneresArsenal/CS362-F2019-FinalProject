@@ -71,12 +71,12 @@ void unitTest9()
     }
 
     // village card (action card) should increase action plays by 2
-    if (post.numActions == pre.numActions + 2)
-    {
-        printf("Valid! Number of action plays by 2! \n");
-        printf("Pre-call number of action plays: %d \n", pre.numActions);
-        printf("Post-call number of action plays: %d \n\n", post.numActions);
-    }
+    // if (post.numActions == pre.numActions + 2)
+    // {
+    //     printf("Valid! Number of action plays by 2! \n");
+    //     printf("Pre-call number of action plays: %d \n", pre.numActions);
+    //     printf("Post-call number of action plays: %d \n\n", post.numActions);
+    // }
 
     memcpy(&post, &pre, sizeof(struct gameState));
     printf("Test case 2: Reveal and discard top 2 cards from next player's hand with victory cards only. \n\n");
@@ -90,12 +90,12 @@ void unitTest9()
 
     // assert the results
     // adds 2 cards to current player's deck and two action phases (bug error)
-    if (post.handCount[pre.whoseTurn] == pre.handCount[pre.whoseTurn] + 2)
-    {
-        printf("Valid! Number of cards in player's hand is accurate! \n");
-        printf("Pre-call handCount: %d \n", pre.handCount[pre.whoseTurn]);
-        printf("Post-call handCount: %d \n\n", post.handCount[pre.whoseTurn]);
-    }
+    // if (post.handCount[pre.whoseTurn] == pre.handCount[pre.whoseTurn] + 2)
+    // {
+    //     printf("Valid! Number of cards in player's hand is accurate! \n");
+    //     printf("Pre-call handCount: %d \n", pre.handCount[pre.whoseTurn]);
+    //     printf("Post-call handCount: %d \n\n", post.handCount[pre.whoseTurn]);
+    // }
 
     if (post.numActions != pre.numActions)
     {
