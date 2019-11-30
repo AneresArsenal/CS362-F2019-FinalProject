@@ -56,27 +56,27 @@ void unitTest9()
 
     // assert the results
     // copper coin (treasure card) should increase coins by 2
-    if (bonus - pre_bonus == 2)
+    if (bonus - pre_bonus != 2)
     {
-        printf("Valid! 2 bonus coins should be added! \n");
+        printf("Bug found! 2 bonus coins should be added! \n");
         printf("Pre-call bonus tally: %d \n", pre_bonus);
         printf("Post-call bonus tally: %d \n\n", bonus);
     }
 
-    if (post.coins - pre.coins != 2)
+    if (post.coins - pre.coins == 2)
     {
-        printf("Valid! 2 bonus coins should be added to bonus and not coins tally! \n");
+        printf("Bug found! 2 bonus coins should be added to bonus and not coins tally! \n");
         printf("Pre-call coin tally: %d \n", pre.coins);
         printf("Post-call coin tally: %d \n\n", post.coins);
     }
 
     // village card (action card) should increase action plays by 2
-    if (post.numActions == pre.numActions + 2)
-    {
-        printf("Valid! Number of action plays by 2! \n");
-        printf("Pre-call number of action plays: %d \n", pre.numActions);
-        printf("Post-call number of action plays: %d \n\n", post.numActions);
-    }
+    // if (post.numActions == pre.numActions + 2)
+    // {
+    //     printf("Valid! Number of action plays by 2! \n");
+    //     printf("Pre-call number of action plays: %d \n", pre.numActions);
+    //     printf("Post-call number of action plays: %d \n\n", post.numActions);
+    // }
 
     memcpy(&post, &pre, sizeof(struct gameState));
     printf("Test case 2: Reveal and discard top 2 cards from next player's hand with victory cards only. \n\n");
@@ -90,16 +90,16 @@ void unitTest9()
 
     // assert the results
     // adds 2 cards to current player's deck and two action phases (bug error)
-    if (post.handCount[pre.whoseTurn] == pre.handCount[pre.whoseTurn] + 2)
-    {
-        printf("Valid! Number of cards in player's hand is accurate! \n");
-        printf("Pre-call handCount: %d \n", pre.handCount[pre.whoseTurn]);
-        printf("Post-call handCount: %d \n\n", post.handCount[pre.whoseTurn]);
-    }
+    // if (post.handCount[pre.whoseTurn] == pre.handCount[pre.whoseTurn] + 2)
+    // {
+    //     printf("Valid! Number of cards in player's hand is accurate! \n");
+    //     printf("Pre-call handCount: %d \n", pre.handCount[pre.whoseTurn]);
+    //     printf("Post-call handCount: %d \n\n", post.handCount[pre.whoseTurn]);
+    // }
 
-    if (post.numActions == pre.numActions)
+    if (post.numActions != pre.numActions)
     {
-        printf("Valid! Number of action plays should be unchanged! \n");
+        printf("Bug found! Number of action plays should be unchanged! \n");
         printf("Pre-call number of action plays: %d \n", pre.numActions);
         printf("Post-call number of action plays: %d \n\n", post.numActions);
     }
@@ -118,9 +118,9 @@ void unitTest9()
 
     // assert the results
     // adds only 2 action phases to current player's deck
-    if (post.numActions == pre.numActions + 2)
+    if (post.numActions == pre.numActions + 4)
     {
-        printf("Valid! Number of action plays should be added by 2!  \n");
+        printf("Bug found! Number of action plays should be added by 2!  \n");
         printf("Pre-call numActions: %d \n", pre.numActions);
         printf("Post-call numActions: %d \n\n", post.numActions);
     }
@@ -139,23 +139,23 @@ void unitTest9()
 
     // assert the results
     // adds only 2 action phases to current player's deck
-    if (post.numActions == pre.numActions)
+    if (post.numActions != pre.numActions)
     {
-        printf("Valid! Number of action plays should be unchanged!  \n");
+        printf("Bug found! Number of action plays should be unchanged!  \n");
         printf("Pre-call numActions: %d \n", pre.numActions);
         printf("Post-call numActions: %d \n\n", post.numActions);
     }
 
-    if (bonus - pre_bonus == 2)
+    if (bonus - pre_bonus != 2)
     {
-        printf("Valid! 2 bonus coins should be added! \n");
+        printf("Bug found! 2 bonus coins should be added! \n");
         printf("Pre-call bonus tally: %d \n", pre_bonus);
         printf("Post-call bonus tally: %d \n\n", bonus);
     }
 
-    if (post.coins == pre.coins)
+    if (post.coins - pre.coins == 2)
     {
-        printf("Valid! 2 bonus coins should be added to bonus and not coins tally! \n");
+        printf("Bug found! 2 bonus coins should be added to bonus and not coins tally! \n");
         printf("Pre-call coin tally: %d \n", pre.coins);
         printf("Post-call coin tally: %d \n\n", post.coins);
     }
