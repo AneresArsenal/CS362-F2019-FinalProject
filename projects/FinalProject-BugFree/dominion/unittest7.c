@@ -32,12 +32,11 @@ void unitTest7()
     memcpy(&preG, &G, sizeof(struct gameState));
 
     int bonus = 0;
-    int result = cardEffect(tribute, 1, 0, 0, &G, 0, &bonus);
+    cardEffect(tribute, 1, 0, 0, &G, 0, &bonus);
 
     assert(G.numActions == (preG.numActions + 4), "%s - Ending Actions (%d) == Starting Actions + 4 (%d)\n", messagePrefix, G.numActions, (preG.numActions + 4));
     assert(G.coins == (preG.coins), "%s - Ending Coins (%d) == Starting Coins (%d)\n", messagePrefix, G.coins, (preG.coins));
     assert(G.handCount[G.whoseTurn] == (preG.handCount[G.whoseTurn]), "%s - Ending Cards (%d) == Starting Cards (%d)\n", messagePrefix, G.handCount[G.whoseTurn], (preG.handCount[G.whoseTurn]));
-    assert(result == 0, "%s - (%d) == 0\n", messagePrefix, result);
 }
 
 int main()
