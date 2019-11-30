@@ -1247,7 +1247,7 @@ int cardEffect(int card, int choice1, int choice2, int choice3, struct gameState
         //trash copies of cards returned to supply
 
         j = 0;
-        int k = 0;
+        k = 0;
 
         // for (int i = 0; i < 11; i++)
         // {
