@@ -40,9 +40,9 @@ unittestresults: clean dominion.o unit_test_helpers.o rngs.o $(UTOUTPUT)
 	gcov -f -b dominion.c >> unittestresults.out
 	# cat dominion.c.gcov
 
-# $(UTOUTPUT): %: %.c
-# 	$(CC) -o $@.ut -g $@.c dominion.o unit_test_helpers.o rngs.o $(CFLAGS)
-# 	./$@.ut >> unittestresults.out
+$(UTOUTPUT): %: %.c
+	$(CC) -o $@.ut -g $@.c dominion.o unit_test_helpers.o rngs.o $(CFLAGS)
+	./$@.ut >> unittestresults.out
 
 
 # unittest10: unittest10.c dominion.c
@@ -50,7 +50,7 @@ unittestresults: clean dominion.o unit_test_helpers.o rngs.o $(UTOUTPUT)
 # 	./unittest10
 # 	# gcov dominion.c -b -f
 
-unittest9: unittest9.c dominion.c
-	gcc -o unittest9 unittest9.c dominion.c rngs.c $(CFLAGS)
-	./unittest9
-	# gcov dominion.c -b -f
+# unittest9: unittest9.c dominion.c
+# 	gcc -o unittest9 unittest9.c dominion.c rngs.c $(CFLAGS)
+# 	./unittest9
+# 	# gcov dominion.c -b -f
