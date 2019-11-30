@@ -31,7 +31,7 @@ player: player.c interface.o
 all: playdom player 
 
 clean:
-	rm -f unittest10 *.o playdom.exe playdom player player.exe *.ut *.gcov *.gcda *.gcno *.so *.out testDrawCard testDrawCard.exe
+	rm -f *.o playdom.exe playdom player player.exe *.ut *.gcov *.gcda *.gcno *.so *.out testDrawCard testDrawCard.exe
 
 unit_test_helpers.o: unit_test_helpers.h unit_test_helpers.c
 	gcc -c unit_test_helpers.c -g  $(CFLAGS)
