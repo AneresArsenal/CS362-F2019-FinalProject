@@ -93,18 +93,9 @@ void unitTest10()
     choice1 = 9;
     choice2 = 2;
 
-    // for (int i = 0; i < r; i++)
-    // {
-    //     printf("Card %d, %d \n", i, post.hand[post.whoseTurn][i]);
-    // }
 
     // call the cardEffect function
     cardEffect(ambassador, choice1, choice2, 0, &post, 10, &bonus);
-
-    // for (int i = 0; i < r; i++)
-    // {
-    //     printf("Card %d, %d \n", i, post.hand[post.whoseTurn][i]);
-    // }
 
     // assert the results
     discard = 0;
