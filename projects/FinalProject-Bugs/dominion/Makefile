@@ -43,4 +43,3 @@ unittestresults: clean dominion.o unit_test_helpers.o rngs.o $(UTOUTPUT)
 $(UTOUTPUT): %: %.c
 	$(CC) -o $@.ut -g $@.c dominion.o unit_test_helpers.o rngs.o $(CFLAGS)
 	./$@.ut >> unittestresults.out
-

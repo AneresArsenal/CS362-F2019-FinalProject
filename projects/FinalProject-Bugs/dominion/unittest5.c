@@ -6,7 +6,8 @@
 #include "rngs.h"
 
 void unitTest5()
-{    
+{
+    printf("--------------------- Project Bug #5 ------------------------\n");
     char *messagePrefix = "UNIT TEST 5 - Score For - Improper Count Check";
 
     //Set Card Array
@@ -17,9 +18,6 @@ void unitTest5()
     struct gameState G;
     initializeGame(2, k, 1, &G);
 
-    G.handCount[G.whoseTurn] = 1;
-    G.hand[G.whoseTurn][0] = estate;
-
     //Set discarded cards to have 2 estates worth 2 points
     G.discardCount[G.whoseTurn] = 2;
     for (int i = 0; i < G.discardCount[G.whoseTurn]; i++)
@@ -28,14 +26,16 @@ void unitTest5()
     }
 
     //Set deck cards to have 8 estates worth 8 points
-    G.deckCount[G.whoseTurn] = 8;
+    G.deckCount[G.whoseTurn] = 4;
     for (int i = 0; i < G.deckCount[G.whoseTurn]; i++)
     {
         G.deck[G.whoseTurn][i] = estate;
     }
 
     int result = scoreFor(G.whoseTurn, &G);
-    assert(result==11, "%s - End Score (%d) == Expected Score (%d)\n", messagePrefix, result, 11);
+    assert(result == 10, "%s - End Score (%d) == Expected Score (%d)\n", messagePrefix, result, 10);
+
+    printf("\n >>>>>>>>>>>>>> SUCCESS: Testing complete for Bug #5 <<<<<<<<<<<<<<<<<<< \n\n");
 }
 
 int main()
