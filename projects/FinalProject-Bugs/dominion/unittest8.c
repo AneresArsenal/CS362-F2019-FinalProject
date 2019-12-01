@@ -7,7 +7,10 @@
 
 void unitTest8a()
 {
+<<<<<<< HEAD
     printf("--------------------- Project Bug #8 ------------------------\n");
+=======
+>>>>>>> f6251c388c705a0f3a027375b07719cc3eb7ae20
     char *messagePrefix = "UNIT TEST 8A - playCard/cardEffect - Coin Tracking Issues For Baron";
 
     //Set Card Array
@@ -174,6 +177,7 @@ void unitTest8e()
 
     //Update coins to account for potential impact to changing first card.
     updateCoins(0, &G, 0);
+<<<<<<< HEAD
 
     //Save current game state
     struct gameState preG;
@@ -215,6 +219,49 @@ void unitTest8f()
 
     playCard(0, 2, 0, 0, &G);
 
+=======
+
+    //Save current game state
+    struct gameState preG;
+    memcpy(&preG, &G, sizeof(struct gameState));
+
+    playCard(0, 1, 0, 0, &G);
+
+    assert(G.coins == (preG.coins + 6), "%s - End Num Coins (%d) == Start Num Coins + 6 (%d)\n", messagePrefix, G.coins, (preG.coins + 6));
+}
+
+void unitTest8f()
+{
+    char *messagePrefix = "UNIT TEST 8F - playCard/cardEffect - Coin Tracking Issues For Steward";
+
+    //Set Card Array
+    int k[10] = {adventurer, council_room, feast, gardens, mine,
+                 remodel, smithy, village, baron, great_hall};
+
+    //Setup Game State
+    struct gameState G;
+    initializeGame(2, k, 1, &G);
+
+    //Reset Hand
+    for (int i = 0; i < G.handCount[G.whoseTurn]; i++)
+    {
+        G.hand[G.whoseTurn][i] = -1;
+    }
+    G.handCount[G.whoseTurn] = 0;
+
+    //Set first cards in hand to baron card
+    G.hand[G.whoseTurn][0] = steward;
+    G.handCount[G.whoseTurn] = 1;
+
+    G.coins = 10;
+
+    //Save current game state
+    struct gameState preG;
+    memcpy(&preG, &G, sizeof(struct gameState));
+
+    playCard(0, 2, 0, 0, &G);
+
+>>>>>>> f6251c388c705a0f3a027375b07719cc3eb7ae20
     assert(G.coins == (preG.coins + 2), "%s - End Num Coins (%d) == Start Num Coins + 2 (%d)\n", messagePrefix, G.coins, (preG.coins + 2));
 }
 
@@ -226,6 +273,9 @@ int main()
     unitTest8d();
     unitTest8e();
     unitTest8f();
+<<<<<<< HEAD
 
     printf("\n >>>>>>>>>>>>>> SUCCESS: Testing complete for Bug #8 <<<<<<<<<<<<<<<<<<<\n\n");
+=======
+>>>>>>> f6251c388c705a0f3a027375b07719cc3eb7ae20
 }
