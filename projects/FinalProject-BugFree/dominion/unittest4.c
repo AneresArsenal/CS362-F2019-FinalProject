@@ -28,7 +28,7 @@ int main()
     int k[10] = {adventurer, baron, village, minion, remodel, cutpurse,
                  sea_hag, treasure_map, salvager, council_room};
 
-    printf("----------------- Project Problem #4 ----------------\n");
+    printf("--------------------- Project Bug #4 ------------------------\n");
 
     // ----------- TEST 1: --------------
 
@@ -50,7 +50,7 @@ int main()
     printf("return value = %d, expected = %d - ", output, 1);
     passFail(output == 1);
 
-    printf("\n >>>>> SUCCESS: Testing complete #4 <<<<<\n\n");
+    printf("\n >>>>>>>>>>>>>> SUCCESS: Testing complete for Bug #4 <<<<<<<<<<<<<<<<<<<\n\n");
 
     return 0;
 }

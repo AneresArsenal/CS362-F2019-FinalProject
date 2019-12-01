@@ -7,7 +7,8 @@
 
 void unitTest7()
 {
-    char* messagePrefix = "UNIT TEST 7 - Tribute - Loop Overrun";
+    printf("--------------------- Project Bug #7 ------------------------\n");
+    char *messagePrefix = "UNIT TEST 7 - Tribute - Loop Overrun";
     //Set Card Array
     int k[10] = {adventurer, council_room, feast, gardens, mine,
                  remodel, smithy, village, baron, great_hall};
@@ -37,6 +38,9 @@ void unitTest7()
     assert(G.numActions == (preG.numActions + 4), "%s - Ending Actions (%d) == Starting Actions + 4 (%d)\n", messagePrefix, G.numActions, (preG.numActions + 4));
     assert(G.coins == (preG.coins), "%s - Ending Coins (%d) == Starting Coins (%d)\n", messagePrefix, G.coins, (preG.coins));
     assert(G.handCount[G.whoseTurn] == (preG.handCount[G.whoseTurn]), "%s - Ending Cards (%d) == Starting Cards (%d)\n", messagePrefix, G.handCount[G.whoseTurn], (preG.handCount[G.whoseTurn]));
+
+
+    printf("\n >>>>>>>>>>>>>> SUCCESS: Testing complete for Bug #7 <<<<<<<<<<<<<<<<<<<\n\n");
 }
 
 int main()

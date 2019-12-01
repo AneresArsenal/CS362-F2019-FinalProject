@@ -7,6 +7,7 @@
 
 void unitTest8a()
 {
+    printf("--------------------- Project Bug #8 ------------------------\n");
     char *messagePrefix = "UNIT TEST 8A - playCard/cardEffect - Coin Tracking Issues For Baron";
 
     //Set Card Array
@@ -225,4 +226,6 @@ int main()
     unitTest8d();
     unitTest8e();
     unitTest8f();
+
+    printf("\n >>>>>>>>>>>>>> SUCCESS: Testing complete for Bug #8 <<<<<<<<<<<<<<<<<<<\n\n");
 }

@@ -7,6 +7,8 @@
 
 void unitTest6()
 {
+
+    printf("--------------------- Project Bug #6 ------------------------\n");
     char *messagePrefix = "UNIT TEST 6 - Feast - Coin Management Issues";
 
     //Set Card Array
@@ -39,6 +41,8 @@ void unitTest6()
 
     assert(G.coins == preG.coins, "%s - Ending Coins (%d) == Starting Coins (%d)\n", messagePrefix, G.coins, preG.coins);
     assert(G.handCount[G.whoseTurn] == 0, "%s - Hand Count == 0 (%d) \n", messagePrefix, G.handCount[G.whoseTurn]);
+
+    printf("\n >>>>>>>>>>>>>> SUCCESS: Testing complete for Bug #6 <<<<<<<<<<<<<<<<<<<\n\n");
 }
 
 int main()
