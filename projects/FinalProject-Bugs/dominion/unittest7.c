@@ -37,11 +37,8 @@ void unitTest7()
     assert(G.numActions == (preG.numActions + 4), "%s - Ending Actions (%d) == Starting Actions + 4 (%d)\n", messagePrefix, G.numActions, (preG.numActions + 4));
     assert(G.coins == (preG.coins), "%s - Ending Coins (%d) == Starting Coins (%d)\n", messagePrefix, G.coins, (preG.coins));
     assert(G.handCount[G.whoseTurn] == (preG.handCount[G.whoseTurn]), "%s - Ending Cards (%d) == Starting Cards (%d)\n", messagePrefix, G.handCount[G.whoseTurn], (preG.handCount[G.whoseTurn]));
-<<<<<<< HEAD
 
     printf("\n >>>>>>>>>>>>>> SUCCESS: Testing complete for Bug #7 <<<<<<<<<<<<<<<<<<<\n\n");
-=======
->>>>>>> f6251c388c705a0f3a027375b07719cc3eb7ae20
 }
 
 int main()
