@@ -1244,37 +1244,20 @@ int cardEffect(int card, int choice1, int choice2, int choice3, struct gameState
         //discard played card from hand
         discardCard(handPos, currentPlayer, state, 0);
 
+        int cardChoice1 = state->hand[currentPlayer][choice1];
+
         //trash copies of cards returned to supply
-
-        j = 0;
-        k = 0;
-
-        // for (int i = 0; i < 11; i++)
-        // {
-        //     printf("Card %d, %d \n", i, state->hand[currentPlayer][i]);
-        // }
-
-        int discard[2];
-
-        while (k < state->handCount[currentPlayer] && j < choice2)
+        for (j = 0; j < choice2; j++)
         {
-            if (state->hand[currentPlayer][k] == state->hand[currentPlayer][choice1])
+            for (i = 0; i < state->handCount[currentPlayer]; i++)
             {
-                // printf("j count: %d \n", j);
-                // printf("k count: %d \n", k);
-                discard[j] = k;
-                j++;
+                if (state->hand[currentPlayer][i] == cardChoice1)
+                {
+                    discardCard(i, currentPlayer, state, 1);
+                    break;
+                }
             }
-            k++;
         }
-
-        discardCard(discard[1], currentPlayer, state, 1);
-        discardCard(discard[0], currentPlayer, state, 1);
-
-        // for (int i = 0; i < 11; i++)
-        // {
-        //     printf("Card %d, %d \n", i, state->hand[currentPlayer][i]);
-        // }
 
         return 0;
 
