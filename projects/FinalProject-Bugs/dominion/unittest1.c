@@ -31,7 +31,7 @@ int main()
     int k[10] = {adventurer, baron, village, minion, mine, cutpurse,
                  sea_hag, tribute, smithy, council_room};
 
-    printf("----------------- Project Problem #1 ----------------\n");
+    printf("--------------------- Project Bug #1 ------------------------\n");
 
     // ----------- TEST 1: --------------
 
@@ -60,10 +60,10 @@ int main()
     passFail(output == 0);
     printf("current players discardCount = %d, expected = %d - ", testG.discardCount[thisPlayer], G.discardCount[thisPlayer] + 1);
     passFail(testG.discardCount[thisPlayer] == G.discardCount[thisPlayer] + 1);
-    printf("current players discard pile contains = %d, expected = %d - ", testG.discard[thisPlayer][testG.discardCount[thisPlayer]-1], mine);
-    passFail(testG.discard[thisPlayer][testG.discardCount[thisPlayer]-1] == mine);
-    printf("current players hand count = %d, expected = %d - ", testG.handCount[thisPlayer], G.handCount[thisPlayer]-1);
-    passFail(testG.handCount[thisPlayer] == G.handCount[thisPlayer]-1);
+    printf("current players discard pile contains = %d, expected = %d - ", testG.discard[thisPlayer][testG.discardCount[thisPlayer] - 1], mine);
+    passFail(testG.discard[thisPlayer][testG.discardCount[thisPlayer] - 1] == mine);
+    printf("current players hand count = %d, expected = %d - ", testG.handCount[thisPlayer], G.handCount[thisPlayer] - 1);
+    passFail(testG.handCount[thisPlayer] == G.handCount[thisPlayer] - 1);
     printf("Player's hand contains copper piece - ");
     for (int i = 0; i < testG.handCount[thisPlayer]; i++)
     {
@@ -74,7 +74,6 @@ int main()
         }
     }
     passFail(pass == 1);
-
 
     // ----------- TEST 2:  --------------
 
@@ -103,10 +102,10 @@ int main()
     passFail(output == 0);
     printf("current players discardCount = %d, expected = %d - ", testG.discardCount[thisPlayer], G.discardCount[thisPlayer] + 1);
     passFail(testG.discardCount[thisPlayer] == G.discardCount[thisPlayer] + 1);
-    printf("current players discard pile contains = %d, expected = %d - ", testG.discard[thisPlayer][testG.discardCount[thisPlayer]-1], mine);
-    passFail(testG.discard[thisPlayer][testG.discardCount[thisPlayer]-1] == mine);
-    printf("current players hand count = %d, expected = %d - ", testG.handCount[thisPlayer], G.handCount[thisPlayer]-1);
-    passFail(testG.handCount[thisPlayer] == G.handCount[thisPlayer]-1);
+    printf("current players discard pile contains = %d, expected = %d - ", testG.discard[thisPlayer][testG.discardCount[thisPlayer] - 1], mine);
+    passFail(testG.discard[thisPlayer][testG.discardCount[thisPlayer] - 1] == mine);
+    printf("current players hand count = %d, expected = %d - ", testG.handCount[thisPlayer], G.handCount[thisPlayer] - 1);
+    passFail(testG.handCount[thisPlayer] == G.handCount[thisPlayer] - 1);
     printf("Player's hand contains silver piece - ");
     for (int i = 0; i < testG.handCount[thisPlayer]; i++)
     {
@@ -118,7 +117,7 @@ int main()
     }
     passFail(pass == 1);
 
-    printf("\n >>>>> SUCCESS: Testing complete #1 <<<<<\n\n");
+    printf("\n >>>>>>>>>>>>>> SUCCESS: Testing complete for Bug #1 <<<<<<<<<<<<<<<<<<< \n\n");
 
     return 0;
 }

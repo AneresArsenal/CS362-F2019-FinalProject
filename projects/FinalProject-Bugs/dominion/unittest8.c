@@ -7,6 +7,7 @@
 
 void unitTest8a()
 {
+    printf("--------------------- Project Bug #8 ------------------------\n");
     char *messagePrefix = "UNIT TEST 8A - playCard/cardEffect - Coin Tracking Issues";
 
     //Set Card Array
@@ -40,6 +41,9 @@ void unitTest8a()
     playCard(0, 1, 0, 0, &G);
 
     assert(G.coins == (preG.coins + 4), "%s - End Num Coins (%d) == Start Num Coins + 4 (%d)\n", messagePrefix, G.coins, (preG.coins + 4));
+
+
+    printf("\n >>>>>>>>>>>>>> SUCCESS: Testing complete for Bug #8 <<<<<<<<<<<<<<<<<<< \n\n");
 }
 
 int main()

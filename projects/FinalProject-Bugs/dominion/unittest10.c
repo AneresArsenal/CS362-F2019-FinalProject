@@ -7,6 +7,7 @@
 
 void unitTest10()
 {
+    printf("--------------------- Project Bug #10 ------------------------\n");
     printf("Starting Unit Test 10 - Ambassador card - comparing position i with card choice \n\n");
 
     // initialize and set variables
@@ -45,7 +46,7 @@ void unitTest10()
     // {
     //     printf("Card %d, %d \n", i, post.hand[post.whoseTurn][i]);
     // }
-    
+
     // call the cardEffect function
     cardEffect(ambassador, choice1, choice2, 0, &post, 10, &bonus);
 
@@ -73,7 +74,7 @@ void unitTest10()
         i++;
     }
 
-    if (discard == choice2 +1)
+    if (discard == choice2 + 1)
     {
         printf("Correct number of cards is discarded.\n");
         printf("Number of cards to be discarded: %d \n", choice2 + 1);
@@ -83,7 +84,7 @@ void unitTest10()
     if (copperCount == 2)
     {
         printf("Correct number of copper cards is discarded.\n");
-        printf("Number of copper cards that should remain: %d \n", 3-choice2);
+        printf("Number of copper cards that should remain: %d \n", 3 - choice2);
         printf("Number of copper cards remaining: %d \n\n", copperCount);
     }
 
@@ -92,7 +93,6 @@ void unitTest10()
 
     choice1 = 9;
     choice2 = 2;
-
 
     // call the cardEffect function
     cardEffect(ambassador, choice1, choice2, 0, &post, 10, &bonus);
@@ -126,11 +126,11 @@ void unitTest10()
     if (copperCount != 1)
     {
         printf("Bug Found! Wrong number of copper cards discarded.\n");
-        printf("Number of copper cards that should remain: %d \n", 3-choice2);
+        printf("Number of copper cards that should remain: %d \n", 3 - choice2);
         printf("Number of copper cards remaining: %d \n\n", copperCount);
     }
 
-    printf("Unit Test 10 completed! \n\n");
+    printf("\n >>>>>>>>>>>>>> SUCCESS: Testing complete for Bug #10 <<<<<<<<<<<<<<<<<<< \n\n");
 }
 
 int main()

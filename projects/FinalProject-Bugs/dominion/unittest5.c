@@ -6,7 +6,8 @@
 #include "rngs.h"
 
 void unitTest5()
-{    
+{
+    printf("--------------------- Project Bug #5 ------------------------\n");
     char *messagePrefix = "UNIT TEST 5 - Score For - Improper Count Check";
 
     //Set Card Array
@@ -32,7 +33,9 @@ void unitTest5()
     }
 
     int result = scoreFor(G.whoseTurn, &G);
-    assert(result==10, "%s - End Score (%d) == Expected Score (%d)\n", messagePrefix, result, 10);
+    assert(result == 10, "%s - End Score (%d) == Expected Score (%d)\n", messagePrefix, result, 10);
+
+    printf("\n >>>>>>>>>>>>>> SUCCESS: Testing complete for Bug #5 <<<<<<<<<<<<<<<<<<< \n\n");
 }
 
 int main()

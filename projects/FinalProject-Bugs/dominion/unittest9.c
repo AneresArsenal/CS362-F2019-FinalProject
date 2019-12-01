@@ -7,6 +7,7 @@
 
 void unitTest9()
 {
+    printf("--------------------- Project Bug #9 ------------------------\n");
     printf("Starting Unit Test 9 - Tribute card - duplicate revealed cards \n\n");
 
     // initialize and set variables
@@ -160,7 +161,7 @@ void unitTest9()
         printf("Post-call coin tally: %d \n\n", post.coins);
     }
 
-    printf("Unit Test 9 completed! \n\n");
+    printf("\n >>>>>>>>>>>>>> SUCCESS: Testing complete for Bug #9 <<<<<<<<<<<<<<<<<<< \n\n");
 }
 
 int main()
