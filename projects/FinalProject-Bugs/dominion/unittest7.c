@@ -7,7 +7,8 @@
 
 void unitTest7()
 {
-    char* messagePrefix = "UNIT TEST 7 - Tribute - Loop Overrun";
+    printf("--------------------- Project Bug #7 ------------------------\n");
+    char *messagePrefix = "UNIT TEST 7 - Tribute - Loop Overrun";
     //Set Card Array
     int k[10] = {adventurer, council_room, feast, gardens, mine,
                  remodel, smithy, village, baron, great_hall};
