@@ -41,6 +41,17 @@
 *.su
 *.idb
 *.pdb
+*.gcda
+*.gcno
+# Debug files
+*.dSYM/
+*.su
+*.idb
+*.pdb
+*.gcda
+*.gcno
+*.ut
+*.gcov
 
 # Kernel Module Compile Results
 *.mod*
